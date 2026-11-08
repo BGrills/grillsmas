@@ -28,13 +28,13 @@ body {
   min-height: 100vh;
   padding-bottom: 64px;
   cursor: var(--cur-star), auto;
-  /* Tartan, obviously. */
-  background-color: #8a1022;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(6, 74, 30, .55) 0 26px, transparent 26px 52px, rgba(245, 197, 24, .22) 52px 55px, transparent 55px 104px),
-    repeating-linear-gradient(90deg, rgba(6, 74, 30, .55) 0 26px, transparent 26px 52px, rgba(245, 197, 24, .22) 52px 55px, transparent 55px 104px),
-    repeating-linear-gradient(45deg, rgba(0, 0, 0, .06) 0 2px, transparent 2px 6px);
+  /* Cozy Whistler chalet scene, pinned behind everything. */
+  background: #26386b;
   overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: url(/assets/bg-chalet.svg) center bottom / cover no-repeat;
 }
 a, button, select, label, summary, input[type="date"], .chip.mine, .tab { cursor: var(--cur-cane), pointer; }
 input[type="text"], input:not([type]), input[type="password"] { cursor: text; }
@@ -109,6 +109,7 @@ input[type="text"], input:not([type]), input[type="password"] { cursor: text; }
 @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(4deg); } }
 
 .subtitle {
+  display: table; padding: 3px 14px; border-radius: 999px; background: rgba(14, 26, 58, .55);
   margin: 10px auto 4px; color: #fff; font-weight: 700; font-size: clamp(1rem, 2.6vw, 1.3rem);
   text-shadow: 0 2px 0 #000, 0 0 10px rgba(0, 0, 0, .6);
 }
@@ -120,6 +121,7 @@ input[type="text"], input:not([type]), input[type="password"] { cursor: text; }
 }
 @keyframes jiggle { 0%, 88%, 100% { transform: rotate(0); } 91% { transform: rotate(-4deg); } 94% { transform: rotate(4deg); } 97% { transform: rotate(-2deg); } }
 
+.me-bar > span { padding: 3px 10px; border-radius: 999px; background: rgba(14, 26, 58, .55); }
 .me-bar {
   display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap;
   margin-top: 8px; color: #fff; font-weight: 700; text-shadow: 0 1px 2px #000;
@@ -132,7 +134,7 @@ input[type="text"], input:not([type]), input[type="password"] { cursor: text; }
 .me-btn:hover { transform: rotate(-3deg) scale(1.05); }
 .ghost-btn {
   font: 700 .9rem var(--body); padding: 5px 12px; border-radius: 999px;
-  border: 2px dashed rgba(255, 255, 255, .8); background: rgba(0, 0, 0, .25); color: #fff;
+  border: 2px dashed rgba(255, 255, 255, .8); background: rgba(14, 26, 58, .6); color: #fff;
 }
 
 /* ── Tabs (wrapped presents) ────────────── */
