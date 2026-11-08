@@ -104,13 +104,21 @@
     const txt = el.textContent;
     el.textContent = '';
     el.setAttribute('aria-label', txt);
-    [...txt].forEach((ch, i) => {
-      const s = document.createElement('span');
-      s.textContent = ch;
-      s.setAttribute('aria-hidden', 'true');
-      s.style.setProperty('--i', i);
-      if (ch === ' ') s.className = 'sp';
-      el.appendChild(s);
+    // Letters are grouped per word so a line can only wrap between words.
+    let i = 0;
+    txt.split(' ').forEach((word, w) => {
+      if (w > 0) el.appendChild(document.createTextNode(' '));
+      const wordEl = document.createElement('span');
+      wordEl.className = 'word';
+      wordEl.setAttribute('aria-hidden', 'true');
+      [...word].forEach((ch) => {
+        const s = document.createElement('span');
+        s.textContent = ch;
+        s.style.setProperty('--i', i++);
+        wordEl.appendChild(s);
+      });
+      el.appendChild(wordEl);
+      i++;
     });
   });
 

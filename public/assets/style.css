@@ -96,15 +96,16 @@ input[type="text"], input:not([type]), input[type="password"] { cursor: text; }
   font-family: var(--display); font-weight: 700; margin: 0;
   font-size: clamp(3rem, 10vw, 6.2rem); line-height: 1; letter-spacing: 2px;
 }
-.title span {
+.title .word { display: inline-block; white-space: nowrap; }
+.title .word span {
   display: inline-block; color: var(--red);
   -webkit-text-stroke: 2px #fff; paint-order: stroke fill;
   text-shadow: 0 4px 0 var(--red-dk), 0 8px 18px rgba(0, 0, 0, .45);
   animation: bob 1.6s ease-in-out infinite; animation-delay: calc(var(--i) * -0.12s);
 }
-.title span:nth-child(3n+2) { color: var(--green); text-shadow: 0 4px 0 var(--green-dk), 0 8px 18px rgba(0, 0, 0, .45); }
-.title span:nth-child(3n) { color: var(--gold); text-shadow: 0 4px 0 #9c7a00, 0 8px 18px rgba(0, 0, 0, .45); }
-.title span.sp { width: .35em; }
+.title .word span:nth-child(3n+2) { color: var(--green); text-shadow: 0 4px 0 var(--green-dk), 0 8px 18px rgba(0, 0, 0, .45); }
+.title .word span:nth-child(3n) { color: var(--gold); text-shadow: 0 4px 0 #9c7a00, 0 8px 18px rgba(0, 0, 0, .45); }
+
 @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(4deg); } }
 
 .subtitle {
@@ -423,3 +424,7 @@ dialog h2 { font-family: var(--display); font-size: 2.4rem; margin: 0; color: va
   .ticker-inner { animation: tick 120s linear infinite !important; }
   .sleigh { display: none; }
 }
+
+/* Login page: smaller title so "Grillsmas HQ" stays on one line. */
+.door { max-width: 600px; }
+.door .title { font-size: clamp(2.6rem, 11vw, 4.6rem); }
