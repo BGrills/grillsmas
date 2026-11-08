@@ -3,6 +3,8 @@
   "name": "grillsmas-1",
   "main": "src/worker.js",
   "compatibility_date": "2026-11-01",
+  // Keep variables set in the dashboard (like FAMILY_PASSWORD) when deploying.
+  "keep_vars": true,
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

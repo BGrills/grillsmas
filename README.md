@@ -23,7 +23,7 @@ lib/
 
 Already set up: the Worker `grillsmas-1` is connected to this repo, and the D1 database `grillsmas` is wired in through `wrangler.jsonc`. The one manual step:
 
-1. In Cloudflare go to **Workers & Pages → grillsmas-1 → Settings → Variables and Secrets → Add**. Choose type **Secret**, name it `FAMILY_PASSWORD`, and enter the family password (not case-sensitive). Save and deploy.
+1. In Cloudflare go to **Workers & Pages → grillsmas-1 → Settings → Variables and Secrets → Add**. Choose type **Secret**, name it `FAMILY_PASSWORD`, and enter the family password (not case-sensitive). Click **Deploy**. (`keep_vars` in `wrangler.jsonc` also protects it if it was saved as plain text.)
 
 Every push to `main` builds and deploys automatically; watch it under **grillsmas-1 → Deployments** (or **Builds**). The site lives at `https://grillsmas-1.<your-subdomain>.workers.dev`, shown on the Worker's overview page.
 
