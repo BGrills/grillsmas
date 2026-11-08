@@ -1,6 +1,6 @@
-import { PEOPLE, AVATARS, SEASON, KITCHENS } from '../../lib/config.js';
-import { getDb } from '../../lib/db.js';
-import { sessionToken, sessionCookie, safeEqual } from '../../lib/auth.js';
+import { PEOPLE, AVATARS, SEASON, KITCHENS } from '../lib/config.js';
+import { getDb } from '../lib/db.js';
+import { sessionToken, sessionCookie, safeEqual } from '../lib/auth.js';
 
 // ── helpers ───────────────────────────────────────────────────
 class HttpError extends Error {
@@ -195,8 +195,9 @@ async function route(request, env, parts) {
   throw new HttpError(404, 'The elves couldn’t find that.');
 }
 
-export async function onRequest({ request, env, params }) {
-  const parts = Array.isArray(params.path) ? params.path : [params.path].filter(Boolean);
+// Handles everything under /api/…
+export async function handleApi(request, env) {
+  const parts = new URL(request.url).pathname.split('/').filter(Boolean).slice(1); // drop "api"
   try {
     return await route(request, env, parts);
   } catch (err) {

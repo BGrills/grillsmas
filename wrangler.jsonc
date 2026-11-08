@@ -1,0 +1,20 @@
+{
+  // Must match the Worker's name in the Cloudflare dashboard.
+  "name": "grillsmas-1",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // Run the Worker (password check) before serving any file.
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "grillsmas",
+      "database_id": "d99676af-186a-4724-b00a-1bd240fe21a6"
+    }
+  ],
+  "observability": { "enabled": true }
+}
