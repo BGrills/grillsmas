@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Knock knock 🎄</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="login-page">
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="lights" aria-hidden="true"></div>
+  <div class="sleigh" aria-hidden="true">🦌🦌🦌<span>🛷🎅</span></div>
+
+  <main class="door">
+    <div class="wreath" aria-hidden="true">🎄</div>
+    <h1 class="title" data-wiggle>Grillsmas HQ</h1>
+    <p class="subtitle">Grills family members only. Elves welcome.</p>
+    <form id="login-form" class="card login-card">
+      <label>What's the secret password?
+        <input type="password" name="password" autocomplete="current-password" required autofocus placeholder="🤫">
+      </label>
+      <button class="btn red big">🔔 Ring the doorbell</button>
+      <p class="error" id="error" role="alert"></p>
+    </form>
+  </main>
+
+  <script src="/assets/fx.js"></script>
+  <script>
+    const form = document.getElementById('login-form');
+    const err = document.getElementById('error');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.textContent = '';
+      const btn = form.querySelector('button');
+      btn.disabled = true; btn.textContent = '🔔 Ding dong…';
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ password: form.password.value }),
+        });
+        if (res.ok) {
+          FX.jingle(true);
+          const r = btn.getBoundingClientRect();
+          FX.burst(r.left + r.width / 2, r.top, ['🎁', '🎄', '⭐', '❄️', '🔔']);
+          setTimeout(() => (location.href = '/'), 700);
+          return;
+        }
+        const data = await res.json().catch(() => ({}));
+        err.textContent = data.error || 'Hmm, that didn’t work.';
+        form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+      } catch {
+        err.textContent = 'The North Pole Wi-Fi is down. Try again?';
+      }
+      btn.disabled = false; btn.textContent = '🔔 Ring the doorbell';
+    });
+  </script>
+</body>
+</html>

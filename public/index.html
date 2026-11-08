@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Grillsmas HQ 🎄</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="lights" aria-hidden="true"></div>
+  <div class="sleigh" aria-hidden="true">🦌🦌🦌<span>🛷🎅</span></div>
+
+  <header class="masthead">
+    <button class="star" id="star" title="Do not click the star">⭐</button>
+    <h1 class="title" data-wiggle>Grillsmas HQ</h1>
+    <p class="subtitle">✨ The Official Grills Family Christmas Organizer ✨</p>
+    <p class="countdown" id="countdown"></p>
+    <div class="me-bar">
+      <span>You are:</span>
+      <button class="me-btn" id="who-btn">Pick your name</button>
+      <button class="ghost-btn" id="sound-btn" title="Jingle mode">🔕 Jingle mode</button>
+      <button class="ghost-btn" id="logout-btn" title="Log out">🚪 Log out</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="calendar" role="tab"><span class="bow">🎀</span>📅 Who's Where</button>
+    <button class="tab" data-tab="gifts" role="tab"><span class="bow">🎀</span>🎁 Wish Lists</button>
+    <button class="tab" data-tab="food" role="tab"><span class="bow">🎀</span>🍪 Food Requests</button>
+    <button class="tab" data-tab="help" role="tab"><span class="bow">🎀</span>📜 How It Works</button>
+  </nav>
+
+  <main>
+    <!-- ── CALENDAR ─────────────────────────────── -->
+    <section class="panel card active" id="tab-calendar">
+      <h2>📅 Who's Where in <span class="place">Whistler</span></h2>
+      <p class="hint">Add the dates you'll be in town, then block off any days or evenings that are already spoken for. Everyone can see everyone.</p>
+
+      <div class="forms-row">
+        <form id="stay-form" class="mini-card">
+          <h3>🏔️ My trip</h3>
+          <label>Arriving <input type="date" name="arrive" required></label>
+          <label>Leaving <input type="date" name="depart" required></label>
+          <label>Note <small>(optional)</small> <input name="note" maxlength="120" placeholder="e.g. landing late, staying at the cabin"></label>
+          <button class="btn red">✈️ Add my trip</button>
+        </form>
+
+        <form id="block-form" class="mini-card">
+          <h3>⛔ Block off time</h3>
+          <label>From <input type="date" name="from" required></label>
+          <label>To <small>(leave blank for one day)</small> <input type="date" name="to"></label>
+          <label>When
+            <select name="slot">
+              <option value="day">☀️ Daytime</option>
+              <option value="evening">🌙 Evening</option>
+              <option value="all">⛔ All day</option>
+            </select>
+          </label>
+          <label>Name it <small>(optional)</small> <input name="label" maxlength="60" placeholder="e.g. Ski day, Date night"></label>
+          <button class="btn green">🔒 Block it off</button>
+        </form>
+      </div>
+
+      <div id="my-cal" class="my-stuff"></div>
+
+      <div class="legend">
+        <span><i class="swatch here"></i> In Whistler</span>
+        <span class="chip day">☀️ Daytime</span>
+        <span class="chip evening">🌙 Evening</span>
+        <span class="chip all">⛔ All day</span>
+        <span>Tap your own chip to remove it</span>
+      </div>
+      <div class="cal-wrap"><table id="cal" class="cal"></table></div>
+    </section>
+
+    <!-- ── GIFTS ────────────────────────────────── -->
+    <section class="panel card" id="tab-gifts">
+      <h2>🎁 Wish Lists</h2>
+      <p class="hint">Add things to <b>your</b> list. On everyone else's lists, hit <b>“I'll get this!”</b> so nobody doubles up. You'll never see what's been claimed on your own list. 🙈</p>
+
+      <form id="gift-form" class="mini-card wide">
+        <h3>📝 Add to my list</h3>
+        <div class="grid-3">
+          <label>What do you want? <input name="item" maxlength="140" required placeholder="e.g. Wool ski socks (size L)"></label>
+          <label>Link <small>(optional)</small> <input name="link" maxlength="500" placeholder="https://…"></label>
+          <label>Notes <small>(optional)</small> <input name="notes" maxlength="300" placeholder="colour, size, “any of these”"></label>
+        </div>
+        <button class="btn red">🎄 Add it</button>
+      </form>
+
+      <div id="stockings" class="stockings"></div>
+    </section>
+
+    <!-- ── FOOD ─────────────────────────────────── -->
+    <section class="panel card" id="tab-food">
+      <h2>🍪 Food Requests</h2>
+      <p class="hint">Put in your requests! Chantelle runs the bake shop, Brendan runs dinner. The chef marks each one ✅ yes, 🤔 maybe or 🙅 no.</p>
+      <div id="kitchens" class="kitchens"></div>
+    </section>
+
+    <!-- ── HELP ─────────────────────────────────── -->
+    <section class="panel card scroll" id="tab-help">
+      <h2>📜 The Elf Handbook</h2>
+      <p class="hint">Everything you need to know, in plain words.</p>
+
+      <div class="help-grid">
+        <article>
+          <h3>👋 Getting started</h3>
+          <ol>
+            <li>Use the family password to get in (you only need it once per device).</li>
+            <li>Click <b>“You are:”</b> at the top and pick your name. Everything you add goes under that name.</li>
+            <li>On a shared computer or iPad? Switch names before you add anything.</li>
+          </ol>
+        </article>
+
+        <article>
+          <h3>📅 The calendar</h3>
+          <ol>
+            <li>Go to <b>Who's Where</b>.</li>
+            <li>Under <b>My trip</b>, enter the day you arrive in Whistler and the day you leave. Press <b>Add my trip</b>. Your column turns icy blue for those days.</li>
+            <li>Busy on certain days? Under <b>Block off time</b>, pick a date (or a range), choose <b>Daytime</b>, <b>Evening</b> or <b>All day</b>, and give it a name if you want, like “Ski day”.</li>
+            <li>The <b>🏔️ Here</b> column shows how many of us are in town each day. A 🎉 means everyone's here.</li>
+            <li>Made a mistake? Tap your own chip in the calendar, or use the ✖ in <b>My stuff</b>, to remove it.</li>
+          </ol>
+        </article>
+
+        <article>
+          <h3>🎁 Wish lists</h3>
+          <ol>
+            <li>Go to <b>Wish Lists</b> and fill in <b>Add to my list</b>. A link and notes (size, colour) help a lot.</li>
+            <li>Shopping for someone? Find their stocking and press <b>🎁 I'll get this!</b> on what you're buying. Everyone else sees it's taken.</li>
+            <li>Changed your mind? Press <b>Un-claim</b>.</li>
+            <li>You'll never see what's been claimed on your own list. No peeking!</li>
+          </ol>
+        </article>
+
+        <article>
+          <h3>🍪 Food requests</h3>
+          <ol>
+            <li>Go to <b>Food Requests</b>.</li>
+            <li>Type what you'd love in <b>Chantelle's Bake Shop</b> (treats) or <b>Chef Brendan's Dinner Menu</b> (dinners). Pick who's asking, and press <b>Request it</b>.</li>
+            <li>The chef marks each one ✅ yes, 🤔 maybe or 🙅 no. Bribes are not officially accepted.</li>
+            <li>You can delete your own requests. The chef can delete anything on their menu.</li>
+          </ol>
+        </article>
+      </div>
+      <p class="fine-print">Secret: type <b>hohoho</b> anywhere. 🤫</p>
+    </section>
+  </main>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-inner" id="ticker"></div></div>
+
+  <dialog id="who-dialog">
+    <h2>🎅 Who goes there?</h2>
+    <p>Pick your name so the elves know whose list is whose.</p>
+    <div class="ornaments" id="ornaments"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="/assets/fx.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
