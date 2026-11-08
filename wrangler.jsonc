@@ -1,6 +1,6 @@
 {
   // Must match the Worker's name in the Cloudflare dashboard.
-  "name": "grillsmas-1",
+  "name": "grillsmas",
   "main": "src/worker.js",
   "compatibility_date": "2026-11-01",
   // Keep variables set in the dashboard (like FAMILY_PASSWORD) when deploying.
